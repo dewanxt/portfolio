@@ -1,3 +1,10 @@
+import myImg from '../assets/Portfolio Image.png'
+import cheffestImage from "../assets/ProjectsImg/cheffest.png";
+import ecommerceImage from "../assets/ProjectsImg/e-commerce.png";
+import evenzaImage from "../assets/ProjectsImg/evenza.png";
+import geroldImage from "../assets/ProjectsImg/gerold.png";
+import pumpInstaImage from "../assets/ProjectsImg/pump-insta.png";
+import tourysImage from "../assets/ProjectsImg/tourys.png";
 import { useEffect, useState, type FormEvent } from "react";
 import {
   ArrowDown,
@@ -11,7 +18,9 @@ import {
   Mail,
   Menu,
   Radio,
-} from "lucide-react";
+} 
+
+from "lucide-react";
 
 import { SpaceScene } from "@/components/space-scene";
 import { ParallaxSpaceBackground } from "@/components/parallax-space-background";
@@ -39,7 +48,81 @@ const navItems = [
 
 const skills = ["HTML5", "CSS3", "JavaScript", "React.js", "Bootstrap", "Tailwind CSS", "Firebase"];
 
-const journey = ["ADD YOUR EXPERIENCE", "ADD YOUR EDUCATION", "ADD YOUR MILESTONE"];
+const journey = ["EXPERIENCE-", "EDUCATION-Learning Web Development at Creative IT Uttara Campus, Studying B.Sc. in Computer Science & Engineering at World University of Bangladesh", "MILESTONE-Successfully built and deployed multiple responsive web projects, strengthening my skills in React.js, JavaScript, Tailwind CSS, and modern front-end development."];
+
+type Project = {
+  title: string;
+  description: string;
+  technologies: string;
+  visual: string;
+  github?: string;
+  live?: string;
+  caseStudy?: string;
+  featured?: boolean;
+};
+
+const projects: Project[] = [
+  {
+    title: "E-Commerce",
+    visual: ecommerceImage,
+    description: "A modern and responsive e-commerce website designed to provide a smooth and user-friendly shopping experience. It features a clean interface, product browsing, detailed product views, and an intuitive shopping workflow, with a focus on responsive design and usability.",
+    technologies: "React.js | Javascript | Tailwind CSS | React-Router | Redux/ Context API | Axios/ Fetch API | Vite | Vercel deployment",
+    github: "https://github.com/dewanxt/e-CommerceWebsite",
+    live: "https://e-commerce-website-five-alpha-49.vercel.app/",
+    caseStudy: "",
+    featured: false,
+  },
+  {
+    title: "Gerold",
+    visual: geroldImage,
+    description: "A responsive portfolio website designed with a modern UI to present personal projects and professional skills in a clear and engaging way.",
+    technologies: "React.js | Javascript | Tailwind CSS | React-Router | Redux/ Context API | Axios/ Fetch API | Vite | Vercel deployment",
+    github: "https://github.com/dewanxt/Gerold",
+    live: "https://gerold-delta.vercel.app/",
+    caseStudy: "",
+    featured: false,
+  },
+  {
+    title: "Evenza",
+    visual: evenzaImage,
+    description: "A modern and responsive event website designed to showcase events, speakers, schedules, and event-related information through a clean and engaging interface.",
+    technologies: "React.js | Javascript | Tailwind CSS | React-Router | Redux/ Context API | Axios/ Fetch API | Vite | Vercel deployment",
+    github: "https://github.com/dewanxt/Evenza",
+    live: "https://evenza-neon.vercel.app/",
+    caseStudy: "",
+    featured: false,
+  },
+  {
+    title: "Cheffest",
+    visual: cheffestImage,
+    description: "A modern and responsive food/recipe website designed with a clean interface to showcase recipes and provide an engaging browsing experience.",
+    technologies: "React.js | Javascript | Tailwind CSS | React-Router | React-Icons | Redux | Vite | Vercel deployment",
+    github: "https://github.com/dewanxt/Cheffest",
+    live: "https://cheffiest.vercel.app/",
+    caseStudy: "",
+    featured: false,
+  },
+  {
+    title: "Tourys",
+    visual: tourysImage,
+    description: "A modern and responsive travel website showcasing popular destinations, travel experiences, local culture, and tour packages through an engaging and visually appealing interface.",
+    technologies: "HTML5 | CSS3 | Tailwind CSS | Vercel deployment",
+    github: "https://github.com/dewanxt/Tourys",
+    live: "https://tourys-lake.vercel.app/",
+    caseStudy: "",
+    featured: false,
+  },
+  {
+    title: "Pump-Insta",
+    visual: pumpInstaImage,
+    description: "A responsive Instagram-inspired social media interface designed with a clean layout and familiar social networking elements.",
+    technologies: "HTML5 | CSS3 | Tailwind CSS | Vercel deployment",
+    github: "https://github.com/dewanxt/pumpInsta",
+    live: "https://pump-insta-ochre.vercel.app/",
+    caseStudy: "",
+    featured: false,
+  },
+];
 
 const skillCategories = [
   { name: "FRONT-END DEVELOPMENT", technologies: "HTML5 / CSS3 / JavaScript / React.js / Bootstrap / Tailwind CSS" },
@@ -128,9 +211,7 @@ function ProfileImage() {
       <div className="portrait-frame">
         <div className="portrait-light" />
         <div className="portrait-placeholder">
-          <span className="technical-label">PORTRAIT SIGNAL</span>
-          <strong>IMAGE<br />PENDING</strong>
-          <span>Replace with personal photograph</span>
+          <img src={myImg} alt="" />
         </div>
         <span className="portrait-coordinate">COORDINATES / NOT SET</span>
       </div>
@@ -178,8 +259,8 @@ function About() {
       <div className="profile-data" aria-label="Professional profile details">
         <div><span>NAME</span><strong>MD. SABBiR HOSSAIN DEWAN</strong></div>
         <div><span>SPECIALIZATION</span><strong>FRONT-END DEVELOPMENT</strong></div>
-        <div><span>LOCATION</span><strong>ADD LOCATION</strong></div>
-        <div><span>AVAILABILITY</span><strong>CONTACT FOR STATUS</strong></div>
+        <div><span>LOCATION</span><strong>Dhaka, Bangladesh</strong></div>
+        <div><span>AVAILABILITY</span><strong>+8801976498255</strong></div>
       </div>
       <blockquote>TURNING IDEAS INTO DIGITAL EXPERIENCES THAT FEEL PURPOSEFUL, SEAMLESS, AND MEMORABLE.</blockquote>
     </section>
@@ -229,23 +310,27 @@ function GravitationalVisual() {
   );
 }
 
-function ProjectCard({ index }: { index: number }) {
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   const number = String(index).padStart(2, "0");
   return (
     <article className="project-card">
+      {/*
       <div className="project-visual">
+        <img src={project.visual} alt={`${project.title} project preview`} />
         <div className="project-grid" />
-        <span className="technical-label">VISUAL DATA PENDING</span>
         <strong>{number}</strong>
       </div>
+      */}
       <div className="project-data">
         <p className="technical-label">MISSION {number}</p>
-        <h3>PROJECT TITLE</h3>
-        <p>MISSION DATA PENDING</p>
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
         <div className="project-meta">
-          <span>TECHNOLOGIES — PENDING</span>
-          <span>FEATURED — UNSET</span>
-          <span className="project-link">GITHUB / LIVE / CASE STUDY <ArrowUpRight /></span>
+          <span>{project.technologies}</span>
+          {project.featured && <span>FEATURED</span>}
+          {project.github && <a className="project-link" href={project.github} target="_blank" rel="noreferrer">GITHUB <ArrowUpRight /></a>}
+          {project.live && <a className="project-link" href={project.live} target="_blank" rel="noreferrer">LIVE <ArrowUpRight /></a>}
+          {project.caseStudy && <a className="project-link" href={project.caseStudy} target="_blank" rel="noreferrer">CASE STUDY <ArrowUpRight /></a>}
         </div>
       </div>
     </article>
@@ -260,7 +345,7 @@ function Projects() {
         <p>Future work will be catalogued here as a sequence of discovered missions.</p>
         <span className="technical-label">ARCHIVE STATUS / AWAITING DATA</span>
       </div>
-      <div className="project-list">{[1, 2, 3, 4, 5, 6].map((index) => <ProjectCard key={index} index={index} />)}</div>
+      <div className="project-list">{projects.map((project, index) => <ProjectCard key={`${project.title}-${index}`} project={project} index={index + 1} />)}</div>
     </section>
   );
 }
